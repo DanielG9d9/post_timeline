@@ -1,0 +1,13 @@
+# Inject this in the html output file just before the </body> at the very bottom of the file. It will allow users to click on your posts with links and open them!
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var plot = document.getElementsByClassName('plotly-graph-div')[0];
+    plot.on('plotly_click', function(data){
+        var url = data.points[0].customdata;
+        if(url) {
+            window.open(url, '_blank');
+        }
+    });
+});
+</script>
