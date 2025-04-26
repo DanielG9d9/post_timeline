@@ -42,32 +42,12 @@ fig.add_trace(go.Scatter(
     )
 ))
 
-# Set Post colors and text stuff here
-# fig.add_trace(go.Scatter(
-#     x=df_posts['Date'],
-#     y=df_posts['Price'],
-#     mode='markers',
-#     marker=dict(size=10, color='#0483A5'), # Marker is the dot on the line
-#     name='My Posts',
-#     # text=df_posts['Post'],
-#     text=df_posts['Post_wrapped'], # Use the new DF with posts using the function for break points in text.
-#     customdata=df_posts['Link'],  # Pass in the Link here
-#     hovertemplate=(
-#         '<b>Date:</b> %{x}<br>' +
-#         '<b>Price:</b> $%{y:,.0f}<br>' +  # .0f for no decimals, comma as thousands separator
-#         '<b>Post:</b> %{text}<extra></extra>'
-#     ),
-#     hoverlabel=dict(
-#         bgcolor='white',                 # Hover box background
-#         font=dict(color='black', size=14)  # Hover text color and size
-#     )
-# ))
 # Non-linked posts (keep as blue circles)
 fig.add_trace(go.Scatter(
     x=nonlinked_posts['Date'],
     y=nonlinked_posts['Price'],
     mode='markers',
-    marker=dict(size=14, color='#0483A5', symbol='circle-open-dot'),  # blue circle
+    marker=dict(size=9, color='#0483A5', symbol='circle-open-dot'),  # blue circle
     name='My Posts (No Link)',
     text=nonlinked_posts['Post_wrapped'],
     customdata=nonlinked_posts['Link'],
@@ -89,7 +69,7 @@ fig.add_trace(go.Scatter(
     x=linked_posts['Date'],
     y=linked_posts['Price'],
     mode='markers',
-    marker=dict(size=14, color='#0483A5', symbol='star-open-dot'),  # orange diamond
+    marker=dict(size=9, color='yellow', symbol='star-open-dot'),  # orange diamond
     name='My Posts (With Link)',
     text=linked_posts['Post_wrapped'],
     customdata=linked_posts['Link'],
@@ -104,9 +84,8 @@ fig.add_trace(go.Scatter(
     )
 ))
 
-
 fig.update_layout(
-    title="Don't Say I Didn't Try...",
+    title="Study Bitcoin",
     title_font=dict(
         size=36,
         color='#BBC0C6',  # Title color
@@ -116,7 +95,6 @@ fig.update_layout(
     yaxis_title='',
     paper_bgcolor="#101414",  # Page background color
     plot_bgcolor="#101414",   # Plot area background color
-    xaxis=dict(gridcolor="#BBC0C6"),
     yaxis=dict(gridcolor="#BBC0C6"),
     legend=dict( # Move legend from here
         orientation="h",
@@ -125,7 +103,14 @@ fig.update_layout(
         x=0.02,  # Increase this value to move legend further to the right
         y=1.02,  # Adjust this value if you want the legend closer or farther from the title
         font=dict(size=14, color="#BBC0C6")  # Optional: legend font styling
-    )
+    ),
+    xaxis=dict( # X Axis information here
+        gridcolor="#BBC0C6",
+        range=[
+            df['Date'].min(),  # Start at the earliest date in your data
+            df['Date'].max()   # End at the latest date in your data
+        ]
+    )  
 )
 
 fig.update_xaxes(
@@ -149,7 +134,22 @@ fig.update_yaxes(
     )
 )
 
+# Annotations
+fig.add_annotation(
+    text="Created by Daniel Gray, 04/26/2025.",
+    xref="paper", yref="paper",
+    x=.9, y=-.05,  # bottom left
+    xanchor="left", yanchor="bottom",
+    showarrow=False,
+    font=dict(size=12, color="#BBC0C6"),
+    align="left",
+    bgcolor="rgba(16,20,20,0.7)",  # Optional: semi-transparent background
+    bordercolor="#BBC0C6",         # Optional: border color
+    borderwidth=1,                 # Optional: border width
+    borderpad=4                    # Optional: padding inside the box
+)
+
 fig.show()
 
 # Save chart as interactive HTML file
-fig.write_html("my_chart.html")
+fig.write_html("studyBitcoin_894105.html")
