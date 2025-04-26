@@ -138,13 +138,13 @@ fig.update_yaxes(
 fig.add_annotation(
     text="Created by Daniel Gray, 04/26/2025.",
     xref="paper", yref="paper",
-    x=.9, y=-.05,  # bottom left
+    x=.9, y=0.025,  # bottom left
     xanchor="left", yanchor="bottom",
     showarrow=False,
     font=dict(size=12, color="#BBC0C6"),
     align="left",
     bgcolor="rgba(16,20,20,0.7)",  # Optional: semi-transparent background
-    bordercolor="#BBC0C6",         # Optional: border color
+    # bordercolor="#BBC0C6",         # Optional: border color
     borderwidth=1,                 # Optional: border width
     borderpad=4                    # Optional: padding inside the box
 )
