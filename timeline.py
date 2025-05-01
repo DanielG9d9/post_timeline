@@ -21,6 +21,14 @@ df_posts = df[df['Post'].notna() & (df['Post'].str.strip() != '')].copy()
 df_posts['Post_wrapped'] = df_posts['Post'].apply(lambda x: insert_line_breaks(x, 60))  # Apply the function to add breaks.
 df_posts['HasLink'] = df_posts['Link'].notna() & (df_posts['Link'].str.strip() != '')   # Add HasLink boolean to find columns with links
 
+
+# Count non-empty, non-null posts in the 'Post' column
+total_posts = df['Post'].notna() & (df['Post'].str.strip() != '')
+total_posts_count = total_posts.sum() - 1
+
+# Add a new column 'Total_Posts' with this value for all rows
+# df['Total_Posts'] = total_posts_count
+print(total_posts_count)
 # Split data between rows with and without links
 linked_posts = df_posts[df_posts['HasLink']]
 nonlinked_posts = df_posts[~df_posts['HasLink']]
@@ -85,7 +93,7 @@ fig.add_trace(go.Scatter(
 ))
 
 fig.update_layout(
-    title="Study Bitcoin",
+    title=f"Study Bitcoin - Total Posts: {total_posts_count}",
     title_font=dict(
         size=36,
         color='#BBC0C6',  # Title color
@@ -136,7 +144,7 @@ fig.update_yaxes(
 
 # Annotations
 fig.add_annotation(
-    text="Created by Daniel Gray, 04/26/2025.",
+    text="Created by Daniel Gray, 05/01/2025.",
     xref="paper", yref="paper",
     x=.9, y=0.025,  # bottom left
     xanchor="left", yanchor="bottom",
